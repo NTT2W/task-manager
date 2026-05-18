@@ -11,6 +11,12 @@ public class TaskManager {
         System.out.println("Запуск системы обработки заказов");
 
         BlockingQueue<Order> orderQueue = new LinkedBlockingQueue<>(10);
+
+        if (orderQueue == null) {
+            System.err.println("Критическая ошибка: Очередь не создана");
+            return;
+        }
+
         ConcurrentMap<String, Order> processedOrders = new ConcurrentHashMap<>();
 
 
@@ -25,6 +31,8 @@ public class TaskManager {
             executorService.submit(consumer2);
 
         }
+
+
 
         System.out.println("всего обработано и сохранено заказов: " + processedOrders.size());
     }
